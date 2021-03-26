@@ -23,8 +23,6 @@ sudo systemctl enable isc-dhcp-server
 sudo systemctl restart isc-dhcp-server
 
 ## CONFIGURANDO FORWARD E ROTA DEFAULT
-sudo sed -i -e 's/#net.ipv4.ip/net.ipv4.ip/g' /etc/sysctl.conf
-sudo sysctl -p
 sudo ip route del default
 sudo ip route add default via 192.168.100.1 dev eth1
 
@@ -40,8 +38,8 @@ systemctl restart openvpn
 sudo echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' >> /root/.bashrc
 
 ## CONFIGURANDO O SSH
-sudo sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' sshd_config
-sudo sed 's/PasswordAuthentication no/PasswordAuthentication yes/g' sshd_config
+sudo -i -e sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' sshd_config
+sudo -i -e sed 's/PasswordAuthentication no/PasswordAuthentication yes/g' sshd_config
 sudo echo "root:25030" | chpasswd
 systemctl restart sshd.service
 
